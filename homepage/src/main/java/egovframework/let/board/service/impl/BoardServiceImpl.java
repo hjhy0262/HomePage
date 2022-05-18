@@ -30,4 +30,5 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	public int selectBoardListCnt(BoardVO vo) throws Exception {
 		return boardMapper.selectBoardListCnt(vo);
 	}
+
 }

@@ -156,4 +156,5 @@ public class BoardVO extends ComDefaultVO implements Serializable {
 	public void setMngAt(String mngAt) {
 		this.mngAt = mngAt;
 	}
+
 }

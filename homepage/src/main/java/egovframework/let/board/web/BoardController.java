@@ -23,38 +23,34 @@ public class BoardController {
 	@Resource(name = "boardService")
 	private BoardService boardService;
 
-	// 임시데이터 목록 가져오기
+	// 게시물 목록 가져오기
 	@RequestMapping(value = "/board/selectList.do")
 	public String selectList(@ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model)
 			throws Exception {
-		
-		//공지 게시 글
+		// 공지 게시 글
 		searchVO.setNoticeAt("Y");
 		List<EgovMap> noticeResultList = boardService.selectBoardList(searchVO);
-		model.addAttribute("noticeResultList",noticeResultList);
-		
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
+		model.addAttribute("noticeResultList", noticeResultList);
 
+		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
 		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
 		paginationInfo.setPageSize(searchVO.getPageSize());
-
 		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
 		searchVO.setNoticeAt("N");
 		List<EgovMap> resultList = boardService.selectBoardList(searchVO);
-		model.addAttribute("resultList",resultList);
-		
+		model.addAttribute("resultList", resultList);
+
 		int totCnt = boardService.selectBoardListCnt(searchVO);
 
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
-		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-		model.addAttribute("USER_INFO",user);
+		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		model.addAttribute("USER_INFO", user);
 
 		return "board/BoardSelectList";
 	}
