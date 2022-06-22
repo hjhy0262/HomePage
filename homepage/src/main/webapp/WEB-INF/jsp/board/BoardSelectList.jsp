@@ -75,7 +75,7 @@
 					<%-- 공지 글 --%>
 						<c:forEach var="result" items="${noticeResultList}" varStatus="status">
 							<tr class="notice">
-								<td class="num"><span class="label=bbs spot">공지</span></td>
+								<td class="num"><span class="label-bbs spot">공지</span></td>
 								<td class="tit">
 									<c:url var="viewUrl" value="/board/select.do${_BASE_PARAM}">
 										<c:param name="boardId" value="${result.boardId}"/>									
@@ -98,7 +98,7 @@
 						<c:forEach var="result" items="${resultList}" varStatus="status">
 							<tr>
 								<td class="num">
-									<c:out value="${paginationInfo.totalRecordCount - ((searchVO>pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}"/>
+									<c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}"/>
 								</td>
 								<td class="tit">
 									<c:url var="viewUrl" value="/board/select.do${_BASE_PARAM}">
@@ -108,6 +108,7 @@
 										<c:if test="${result.othbcAt eq 'Y'}">
 											<img alt="비밀 글 아이콘" src="/asset/BBSTMP_0000000000001/images/ico_board_lock.gif"/>									
 										</c:if>
+										<a href="${viewUrl}"><c:out value="${result.boardSj}"/></a>
 									</a>
 								</td>
 								<td class="writer" data-cell-header="작성자: ">

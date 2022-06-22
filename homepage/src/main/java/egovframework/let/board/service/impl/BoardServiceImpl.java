@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.antlr.grammar.v3.ANTLRParser.exceptionGroup_return;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.board.service.BoardService;
@@ -31,4 +32,41 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		return boardMapper.selectBoardListCnt(vo);
 	}
 
+	// 게시물 목록 수
+	public int selectBoardlistCnt(BoardVO vo) throws Exception {
+		return boardMapper.selectBoardListCnt(vo);
+	}
+
+	// 게시물 등록
+	@Override
+	public String insertBoard(BoardVO vo) throws Exception {
+		String id = idgenService.getNextStringId();
+		vo.setBoardId(id);
+		boardMapper.insertBoard(vo);
+
+		return id;
+	}
+	// 게시물 상세정보
+	@Override
+	public BoardVO selectBoard(BoardVO vo) throws Exception {
+		//조회수 업
+		boardMapper.updateViewCnt(vo);
+		/*
+		String a = null;
+		if(a.equals("")) a = "aa";
+		*/
+		return boardMapper.selectBoard(vo);
+		
+	}
+	//게시물 수정하기
+	@Override
+	public void updateBoard(BoardVO vo) throws Exception {
+		boardMapper.updateBoard(vo);
+	}
+	
+	//게시물 삭제하기
+	@Override
+	public void deleteBoard(BoardVO vo) throws Exception {
+		boardMapper.deleteBoard(vo);
+	}
 }
